@@ -1,0 +1,97 @@
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+}
+
+.custom-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.custom-row:before,
+.custom-row:after {
+  content: " ";
+  display: table;
+}
+
+.custom-row:after {
+  clear: both;
+}
+
+.custom-row {
+  *zoom: 1;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.sidebar-menu-container {
+  position: fixed;
+  width: 240px;
+  height: calc(100% - 75.5px);
+  left: calc(50% - 720px);
+  background-color: #fafafa;
+}
+
+.sidebar-menu-container::before {
+  position: absolute;
+  content: "";
+  right: 100%;
+  top: 0;
+  height: 100%;
+  width: 100vw;
+  background-color: #fafafa;
+}
+
+.sidebar-menu {
+  background-color: #fafafa;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-menu .list-item-container {
+  display: block;
+  text-decoration: none !important;
+}
+
+.sidebar-menu .list-item-container .list-item {
+  position: relative;
+  transition: all 0.35s ease-in-out;
+  padding: 1.325rem 1rem;
+}
+
+.sidebar-menu .list-item-container.active .list-item,
+.sidebar-menu .list-item-container .list-item:hover {
+  background-color: #fff !important;
+}
+
+.sidebar-menu .list-item-container .list-item-text span {
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.7);
+  border-bottom: 1.5px solid transparent;
+  transition: all 0.35s ease-in-out;
+}
+
+.sidebar-menu .list-item-container.active .list-item-text span {
+  border-bottom: 1.5px solid #c02c2c;
+}
+
+@media screen and (max-width: 1440px) {
+  .sidebar-menu-container {
+    left: 0;
+  }
+}

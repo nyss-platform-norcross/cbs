@@ -23,7 +23,9 @@ steps:
     restoreSolution: '$(solution)'
 - task: Npm@1
   inputs:
-    command: 'install'
+    command: 'custom'
+    workingDir: 'src/Nyss.Web/ClientApp/'
+    customCommand: 'install --force'
     workingDir: 'src/Nyss.Web/ClientApp/'
     
 - task: VSBuild@1

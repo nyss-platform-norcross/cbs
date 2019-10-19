@@ -12,6 +12,11 @@ namespace Nyss.Web.Features.Locations.Data
         private static readonly List<District> Districts = new List<District>();
         private static readonly List<Village> Villages = new List<Village>();
 
+        public InMemoryLocationRepository()
+        {
+            
+        }
+
         private Task<IEnumerable<T>> Results<T>(IEnumerable<T> items) => Task.FromResult(items);
         private Task<IEnumerable<T>> Results<T>(List<T> items) => Results(items.AsEnumerable());
 

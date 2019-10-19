@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Nyss.Web.Features.Report.Export
+namespace Nyss.Web.Features.Reports.Export
 {
     public interface ICanExportCaseReports
     {

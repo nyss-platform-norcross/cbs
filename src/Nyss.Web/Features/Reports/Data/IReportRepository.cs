@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nyss.Web.Features.Report.Data
+namespace Nyss.Web.Features.Reports.Data
 {
     public interface IReportRepository
     {

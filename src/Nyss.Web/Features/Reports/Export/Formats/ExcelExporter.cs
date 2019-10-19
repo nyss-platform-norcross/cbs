@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using OfficeOpenXml;
 
-namespace Nyss.Web.Features.Report.Export.Formats
+namespace Nyss.Web.Features.Reports.Export.Formats
 {
     public class ExcelExporter : ICanExportCaseReports
     {

@@ -1,7 +1,7 @@
 
 using System;
 
-namespace Nyss.Web.Features.Report
+namespace Nyss.Web.Features.Reports
 {
     public class ReportViewModel
     {

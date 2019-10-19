@@ -1,13 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Globalization;
 using System.Linq;
 using Nyss.Web.Features.Report.Data;
 using RandomNameGeneratorLibrary;
 
-namespace Nyss.Web.Features.Report
+namespace Nyss.Web.Features.Reports
 {
     public class RandomReportService : IReportService
     {

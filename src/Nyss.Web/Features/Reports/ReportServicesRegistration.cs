@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Nyss.Web.Features.Report.Data;
+using Nyss.Web.Features.Reports.Data;
 
-namespace Nyss.Web.Features.Report
+namespace Nyss.Web.Features.Reports
 {
     public static class ReportServicesRegistration
     {

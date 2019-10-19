@@ -332,107 +332,138 @@ namespace Nyss.Web.Features.FakeData
 
         private IEnumerable<Village> GenerateLocations()
         {
-            yield break;
-            /*
-             *
-Mbendi:
-- Malden
-- Panau
-- Plama
-- Baldova
-- Farfelu
-Lasondra:
-- Guianbilan
-- Roller
-- Kurio
-- Nouuga
-- Chapito
-- Tayti
-- Pill
-- Gringen
-- Dernyka
-- Gana
-- Sopahonta
-- Guadec
-- Sabakalan
-- Lacroa
-- Bogay
-Coronia:
-- Yasi
-- Hanplida
-- Goub
-- Yopao
-- Imara
-- Nayak
-- Cialia
-- Messa
-- Santalu
-- Tribia
-Layuna:
-- Rohen
-- Sopigu
-- Gunsa
-- Nitaba
-- Realia
-- Yanpula
-- Tubigsopa
-- Caboza
-- Povia
-- Topigo
-- Santa Rita
-Bahahl:
-- Ploucland
-- Taronia
-- Kalewool
-- Radistan
-- Mifan
-- Wadata
-- Haygam
-- Carouge
-- Join
-- Aimesalang
-- Notsimon
-- Titof
-- Buligtan
-- Slaka
-- Kurkama
-- Banglafi
-- Glupi
-- Taotat
-Moroni:
-- Dipalong
-- Alain
-- Toros
-- Provida
-- Marwi
-- Ankapol
-- Pornic
-- Silenciosa
-- Madiba
-- Sapin
-- Simbad
-- Rabito
-- Madiba
-Bamkao:
-- Padang
-- Bahkan
-- Ridapel
-- Pela
-- Jennifo
-- Edna
-- Orchia
-- Keep
-- Prondisa
-- Jose
-- Okko
-- Ladetu
-- Loreal
-- San Miguel
-- Maioza
-- Giboa
-- Mariba
-             *
-             */
+            var region = new Region { Name = "Mbendi" };
+            GenerateVillageAndSave(new District { Name = "Malden", Region = region });
+            GenerateVillageAndSave(new District { Name = "Panau", Region = region });
+            GenerateVillageAndSave(new District { Name = "Plama", Region = region });
+            GenerateVillageAndSave(new District { Name = "Baldova", Region = region });
+            GenerateVillageAndSave(new District { Name = "Farfelu", Region = region });
+
+            _locationRepository.InsertRegionById(region);
+
+            region = new Region { Name = "Lasondra" };
+            GenerateVillageAndSave(new District { Name = "Guianbilan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Roller", Region = region });
+            GenerateVillageAndSave(new District { Name = "Kurio", Region = region });
+            GenerateVillageAndSave(new District { Name = "Nouuga", Region = region });
+            GenerateVillageAndSave(new District { Name = "Chapito", Region = region });
+            GenerateVillageAndSave(new District { Name = "Tayti", Region = region });
+            GenerateVillageAndSave(new District { Name = "Pill", Region = region });
+            GenerateVillageAndSave(new District { Name = "Gringen", Region = region });
+            GenerateVillageAndSave(new District { Name = "Dernyka", Region = region });
+            GenerateVillageAndSave(new District { Name = "Gana", Region = region });
+            GenerateVillageAndSave(new District { Name = "Sopahonta", Region = region });
+            GenerateVillageAndSave(new District { Name = "Guadec", Region = region });
+            GenerateVillageAndSave(new District { Name = "Sabakalan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Lacroa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Bogay", Region = region });
+
+
+            _locationRepository.InsertRegionById(region);
+            region = new Region { Name = "Coronia" };
+
+            GenerateVillageAndSave(new District { Name = "Yasi", Region = region });
+            GenerateVillageAndSave(new District { Name = "Hanplida", Region = region });
+            GenerateVillageAndSave(new District { Name = "Goub", Region = region });
+            GenerateVillageAndSave(new District { Name = "Yopao", Region = region });
+            GenerateVillageAndSave(new District { Name = "Imara", Region = region });
+            GenerateVillageAndSave(new District { Name = "Nayak", Region = region });
+            GenerateVillageAndSave(new District { Name = "Cialia", Region = region });
+            GenerateVillageAndSave(new District { Name = "Messa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Santalu", Region = region });
+            GenerateVillageAndSave(new District { Name = "Tribia", Region = region });
+
+
+
+            _locationRepository.InsertRegionById(region);
+            region = new Region { Name = "Layuna" };
+            GenerateVillageAndSave(new District { Name = "Rohen", Region = region });
+            GenerateVillageAndSave(new District { Name = "Sopigu", Region = region });
+            GenerateVillageAndSave(new District { Name = "Gunsa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Nitaba", Region = region });
+            GenerateVillageAndSave(new District { Name = "Realia", Region = region });
+            GenerateVillageAndSave(new District { Name = "Yanpula", Region = region });
+            GenerateVillageAndSave(new District { Name = "Tubigsopa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Caboza", Region = region });
+            GenerateVillageAndSave(new District { Name = "Povia", Region = region });
+            GenerateVillageAndSave(new District { Name = "Topigo", Region = region });
+            GenerateVillageAndSave(new District { Name = "Santa Rita", Region = region });
+
+
+
+            _locationRepository.InsertRegionById(region);
+            region = new Region { Name = "Bahahl" };
+            GenerateVillageAndSave(new District { Name = "Ploucland", Region = region });
+            GenerateVillageAndSave(new District { Name = "Taronia", Region = region });
+            GenerateVillageAndSave(new District { Name = "Kalewool", Region = region });
+            GenerateVillageAndSave(new District { Name = "Radistan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Mifan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Wadata", Region = region });
+            GenerateVillageAndSave(new District { Name = "Haygam", Region = region });
+            GenerateVillageAndSave(new District { Name = "Carouge", Region = region });
+            GenerateVillageAndSave(new District { Name = "Join", Region = region });
+            GenerateVillageAndSave(new District { Name = "Aimesalang", Region = region });
+            GenerateVillageAndSave(new District { Name = "Notsimon", Region = region });
+            GenerateVillageAndSave(new District { Name = "Titof", Region = region });
+            GenerateVillageAndSave(new District { Name = "Buligtan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Slaka", Region = region });
+            GenerateVillageAndSave(new District { Name = "Kurkama", Region = region });
+            GenerateVillageAndSave(new District { Name = "Banglafi", Region = region });
+            GenerateVillageAndSave(new District { Name = "Glupi", Region = region });
+            GenerateVillageAndSave(new District { Name = "Taotat", Region = region });
+
+
+
+            _locationRepository.InsertRegionById(region);
+            region = new Region { Name = "Moroni" };
+            GenerateVillageAndSave(new District { Name = "Dipalong", Region = region });
+            GenerateVillageAndSave(new District { Name = "Alain", Region = region });
+            GenerateVillageAndSave(new District { Name = "Toros", Region = region });
+            GenerateVillageAndSave(new District { Name = "Provida", Region = region });
+            GenerateVillageAndSave(new District { Name = "Marwi", Region = region });
+            GenerateVillageAndSave(new District { Name = "Ankapol", Region = region });
+            GenerateVillageAndSave(new District { Name = "Pornic", Region = region });
+            GenerateVillageAndSave(new District { Name = "Silenciosa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Madiba", Region = region });
+            GenerateVillageAndSave(new District { Name = "Sapin", Region = region });
+            GenerateVillageAndSave(new District { Name = "Simbad", Region = region });
+            GenerateVillageAndSave(new District { Name = "Rabito", Region = region });
+            GenerateVillageAndSave(new District { Name = "Madiba", Region = region });
+
+
+
+            _locationRepository.InsertRegionById(region);
+            region = new Region { Name = "Bamkao" };
+            GenerateVillageAndSave(new District { Name = "Padang", Region = region });
+            GenerateVillageAndSave(new District { Name = "Bahkan", Region = region });
+            GenerateVillageAndSave(new District { Name = "Ridapel", Region = region });
+            GenerateVillageAndSave(new District { Name = "Pela", Region = region });
+            GenerateVillageAndSave(new District { Name = "Jennifo", Region = region });
+            GenerateVillageAndSave(new District { Name = "Edna", Region = region });
+            GenerateVillageAndSave(new District { Name = "Orchia", Region = region });
+            GenerateVillageAndSave(new District { Name = "Keep", Region = region });
+            GenerateVillageAndSave(new District { Name = "Prondisa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Jose", Region = region });
+            GenerateVillageAndSave(new District { Name = "Okko", Region = region });
+            GenerateVillageAndSave(new District { Name = "Ladetu", Region = region });
+            GenerateVillageAndSave(new District { Name = "Loreal", Region = region });
+            GenerateVillageAndSave(new District { Name = "San Miguel", Region = region });
+            GenerateVillageAndSave(new District { Name = "Maioza", Region = region });
+            GenerateVillageAndSave(new District { Name = "Giboa", Region = region });
+            GenerateVillageAndSave(new District { Name = "Mariba", Region = region });
+
+            return new List<Village>();
         }
+
+        private void GenerateVillageAndSave(District district)
+        {
+            var r = new Random();
+            for (var i = 0; i < 5; i++)
+            {
+                _locationRepository.InsertVillageById(new Village { Name = r.GenerateRandomFirstAndLastName(), District = district });
+            }
+            _locationRepository.InsertDistrictById(district);
+        }
+
     }
 }

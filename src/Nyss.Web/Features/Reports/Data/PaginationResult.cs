@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nyss.Web.Features.SlowReports
+namespace Nyss.Web.Features.Report.Data
 {
     public class PaginationResult<T> where T : class
     {

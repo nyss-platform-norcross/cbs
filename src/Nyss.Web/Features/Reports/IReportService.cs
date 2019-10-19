@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nyss.Web.Features.SlowReports;
-using Nyss.Web.Features.SlowReports.Logic;
+using Nyss.Web.Features.Report.Data;
 
 namespace Nyss.Web.Features.Reports
 {
@@ -9,6 +8,6 @@ namespace Nyss.Web.Features.Reports
     {
         IEnumerable<ReportViewModel> All();
 
-        Task<PaginationResult<ReportViewModel>> GetReportsAsync(PaginationOptions options);
+        Task<PaginationResult<Nyss.Data.Models.Report>> GetReportsAsync(PaginationOptions options);
     }
 }

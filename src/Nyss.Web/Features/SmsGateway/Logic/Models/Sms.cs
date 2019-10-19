@@ -28,7 +28,7 @@ namespace Nyss.Web.Features.SmsGateway.Logic.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
-        internal Coordinate Coordinate => new Coordinate(Latitude, Longitude);
+        internal Coordinate Coordinate => new Coordinate(Longitude, Latitude);
         internal Point Location => Geometry.DefaultFactory.CreatePoint(Coordinate);
 
         public SmsProcessResult Validate(SmsProcessResult result = null)
@@ -40,8 +40,7 @@ namespace Nyss.Web.Features.SmsGateway.Logic.Models
 
             if (string.IsNullOrWhiteSpace(Timestamp))
                 result.RequestErrors.Add("Timestamp is required.");
-
-            if(!DateTime.TryParseExact(Timestamp, TimestampFormat, Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out var dump))
+            else if(!DateTime.TryParseExact(Timestamp, TimestampFormat, Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out var dump))
                 result.RequestErrors.Add($"Timestamp must be in format {TimestampFormat}.");
 
             if(string.IsNullOrWhiteSpace(Text))

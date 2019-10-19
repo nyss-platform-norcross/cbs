@@ -11,9 +11,12 @@ namespace Nyss.Web.Features.SmsGateway.Logic.Models
         public string FeedbackMessage { get; set; }
         public string PhoneNumber { get; set; }
 
+        public bool IsAuthorized { get; set; }
+
         public SmsProcessResult()
         {
             RequestErrors = new List<string>();
+            IsAuthorized = true;
         }
     }
 }

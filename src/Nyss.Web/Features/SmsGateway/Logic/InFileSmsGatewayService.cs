@@ -8,6 +8,9 @@ namespace Nyss.Web.Features.SmsGateway.Logic
 {
     public class InFileSmsGatewayService : ISmsGatewayService
     {
+        private const string PathToOurSuperFileDatabase = @"C:\temp\Nyss-sms.txt";
+        private const string OurSuperSecretApiKey = "oursupersecretapikey";
+
         private readonly ISmsParser _smsParser;
 
         public InFileSmsGatewayService(ISmsParser smsParser)
@@ -22,9 +25,12 @@ namespace Nyss.Web.Features.SmsGateway.Logic
             var result = sms.Validate();
             result.PhoneNumber = sms.Sender;
 
+            if (sms.ApiKey != OurSuperSecretApiKey)
+                result.IsAuthorized = false;
+
             if (result.IsRequestValid)
             {
-                using (var file = new StreamWriter(@"C:\temp\Nyss-sms.txt", true))
+                using (var file = new StreamWriter(PathToOurSuperFileDatabase, true))
                 {
                     var json = JsonConvert.SerializeObject(sms);
                     await file.WriteLineAsync(json);

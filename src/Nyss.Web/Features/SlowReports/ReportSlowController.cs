@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Nyss.Web.Features.Report;
-using Nyss.Web.Features.SlowReports.Logic;
+using Nyss.Web.Features.Report.Data;
 
 namespace Nyss.Web.Features.SlowReports
 {
@@ -43,11 +43,13 @@ namespace Nyss.Web.Features.SlowReports
 
             var paginationResult = await _reportService.GetReportsAsync(options);
 
+            var data = paginationResult.Data.Select(x => new ReportViewModel()).ToList(); // TODO
+
             var dataTableData = new DatatableDto<ReportViewModel>
             {
                 Draw = paginationOptions.Draw,
                 RecordsTotal = paginationResult.TotalCount,
-                Data = paginationResult.Data,
+                Data = data,
                 RecordsFiltered = paginationResult.FilteredCount
             };
 

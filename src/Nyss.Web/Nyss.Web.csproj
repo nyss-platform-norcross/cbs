@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Features\HealthRisks\Logic\" />
+    <Folder Include="Features\SlowReports\Logic\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

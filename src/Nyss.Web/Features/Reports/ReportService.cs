@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Nyss.Data.Models;
 using Nyss.Web.Features.FakeData;
 using Nyss.Web.Features.Reports.Data;
-using System.Threading.Tasks;
 
 namespace Nyss.Web.Features.Reports
 {
@@ -14,7 +13,7 @@ namespace Nyss.Web.Features.Reports
         private readonly IReportRepository _reportRepository;
 
         public ReportService(
-            FakeDataService fakeDataService,
+            IFakeDataService fakeDataService,
             IReportRepository reportRepository)
         {
             fakeDataService.EnsureFakeDataAsync().Wait();
@@ -23,12 +22,12 @@ namespace Nyss.Web.Features.Reports
 
         public IEnumerable<ReportViewModel> All()
         {
-            yield break;
+            return _reportRepository.All().Select(_ => _.ToViewModel());
         }
 
-        public Task<PaginationResult<Report>> GetReportsAsync(PaginationOptions options)
+        public async Task<PaginationResult<Report>> GetReportsAsync(PaginationOptions options)
         {
-            throw new NotImplementedException();
+            return await _reportRepository.GetReportsAsync(options);
         }
     }
 }

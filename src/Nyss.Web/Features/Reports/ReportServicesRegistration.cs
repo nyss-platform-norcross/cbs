@@ -7,8 +7,8 @@ namespace Nyss.Web.Features.Reports
     {
         public static void RegisterReportFeature(this IServiceCollection services)
         {
-            services.AddScoped<IReportService, RandomReportService>();
-            services.AddScoped<IReportRepository, InMemoryReportRepository>();
+            services.AddScoped<IReportService, ReportService>();
+            services.AddSingleton<IReportRepository, InMemoryReportRepository>();
         }
     }
 }

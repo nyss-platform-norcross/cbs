@@ -4,7 +4,7 @@ namespace Nyss.Web.Features.DataCollectors
 {
     public class DataCollectorViewModel
     {
-        public string FullName {get; set;}
+        public string FullName { get; set; }
         public string DisplayName { get; set; }
         public int YearOfBirth { get; set; }
         public string Sex { get; set; }
@@ -15,8 +15,31 @@ namespace Nyss.Web.Features.DataCollectors
         public string District { get; set; }
         public string Village { get; set; }
         public string Zone { get; set; }
-        public IEnumerable<string> PhoneNumbers {get; set;}
-    
+        public IEnumerable<string> PhoneNumbers { get; set; }
+
         public string Supervisor { get; set; }
+    }
+
+    public static class DataCollectorViewModelExtensions
+    {
+        public static DataCollectorViewModel ToViewModel(this Nyss.Data.Models.DataCollector d)
+        {
+            return new DataCollectorViewModel
+            {
+                DisplayName = d.DisplayName,
+                District = d.Village.District.Name,
+                Village = d.Village.Name,
+                FullName = d.Name,
+                Language = d.Project.ContentLanguage.DisplayName,
+                Latitude = d.Location.Y,
+                Longitude = d.Location.Y,
+                PhoneNumbers = new[] { d.PhoneNumber },
+                Region = d.Village.District.Region.Name,
+                Sex = d.Id % 2 == 0 ? "Male" : "Female",
+                Supervisor = d.Supervisor.Name,
+                YearOfBirth = 1950 + d.Id % 50,
+                Zone = null
+            };
+        }
     }
 }

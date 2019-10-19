@@ -1,25 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nyss.Web.Features.DataCollectors.Data;
 using RandomNameGeneratorLibrary;
 
 namespace Nyss.Web.Features.DataCollectors
 {
     public class DataCollectorsService : IDataCollectorsService
     {
+        private readonly IDataCollectorRepository _dataCollectorRepository;
+
+        public DataCollectorsService(
+            IDataCollectorRepository dataCollectorRepository)
+        {
+            _dataCollectorRepository = dataCollectorRepository;
+        }
+
         public IEnumerable<DataCollectorViewModel> All()
         {
-            var dataCollectors = new List<DataCollectorViewModel>();
-            for (var i = 0; i < 100; ++i)
-            {
-               dataCollectors.Add(GenerateRandomDataCollector());
-            }
-            return dataCollectors;
+            return _dataCollectorRepository.GetAllAsync().Result.Select(_ => _.ToViewModel());
+
+            //var dataCollectors = new List<DataCollectorViewModel>();
+            //for (var i = 0; i < 100; ++i)
+            //{
+            //   dataCollectors.Add(GenerateRandomDataCollector());
+            //}
+            //return dataCollectors;
         }
-    
-        public DataCollectorViewModel ByPhoneNumber(string phoneNumber) {
-        
-            return GenerateRandomDataCollector();
+
+        public DataCollectorViewModel ByPhoneNumber(string phoneNumber)
+        {
+            return _dataCollectorRepository.GetDataCollectorByPhoneNumberAsync(phoneNumber).Result.ToViewModel();
+
+            //return GenerateRandomDataCollector();
         }
 
         DataCollectorViewModel GenerateRandomDataCollector()
@@ -27,30 +40,35 @@ namespace Nyss.Web.Features.DataCollectors
             var personGenerator = new PersonNameGenerator();
 
             //Cleanup function
-            
+
             var rand = new Random();
-            var sex = rand.Next(0,2);
+            var sex = rand.Next(0, 2);
             string s = "";
-            if(sex == 0){
+            if (sex == 0)
+            {
                 s = "Male";
             }
-            else{
+            else
+            {
                 s = "Female";
             }
-            var language = rand.Next(0,2);
+            var language = rand.Next(0, 2);
             string l = "";
-            if(language == 0){
+            if (language == 0)
+            {
                 l = "English";
             }
-            else{
+            else
+            {
                 l = "French";
             }
 
             var latitude = rand.NextDouble() * 180 - 90;
             var longitude = rand.NextDouble() * 360 - 180;
             var phonenumber = "0";
-            for(int x = 0; x < 10; x++){
-                phonenumber += rand.Next(0,10);
+            for (int x = 0; x < 10; x++)
+            {
+                phonenumber += rand.Next(0, 10);
             }
 
             return new DataCollectorViewModel
@@ -65,7 +83,7 @@ namespace Nyss.Web.Features.DataCollectors
                 Region = personGenerator.GenerateRandomFirstName(),
                 District = personGenerator.GenerateRandomLastName(),
                 Village = personGenerator.GenerateRandomFirstAndLastName(),
-                PhoneNumbers = new List<string> { phonenumber}
+                PhoneNumbers = new List<string> { phonenumber }
 
             };
         }

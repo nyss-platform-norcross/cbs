@@ -13,7 +13,7 @@ using RandomNameGeneratorLibrary;
 
 namespace Nyss.Web.Features.FakeData
 {
-    public class FakeDataService
+    public class FakeDataService : IFakeDataService
     {
         private readonly ILocationRepository _locationRepository;
         private readonly IDataCollectorRepository _dataCollectorRepository;
@@ -47,17 +47,6 @@ namespace Nyss.Web.Features.FakeData
         };
         private readonly ProjectHealthRisk[] _projectHealthRisks;
 
-        public async Task EnsureFakeDataAsync()
-        {
-            if ((await _locationRepository.GetRegionsAsync()).Any()) return;
-
-            Random r = new Random();
-
-            GenerateLocations();
-            await GenerateDataCollectorsAsync(20, r);
-            await GenerateReportsAsync(200, DateTime.Now.AddMonths(-1), DateTime.Now, r);
-        }
-
         public FakeDataService(
             ILocationRepository locationRepository,
             IDataCollectorRepository dataCollectorRepository,
@@ -86,6 +75,19 @@ namespace Nyss.Web.Features.FakeData
                 HealthRisk = hr,
                 Project = Project
             }).ToArray();
+
+            EnsureFakeDataAsync().Wait();
+        }
+
+        public async Task EnsureFakeDataAsync()
+        {
+            if ((await _locationRepository.GetRegionsAsync()).Any()) return;
+
+            Random r = new Random();
+
+            GenerateLocations();
+            await GenerateDataCollectorsAsync(20, r);
+            await GenerateReportsAsync(200, DateTime.Now.AddMonths(-1), DateTime.Now, r);
         }
 
         public async Task<IEnumerable<DataCollector>> GenerateDataCollectorsAsync(int count, Random r)

@@ -7,8 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nyss.Web.Features.DataCollectors;
 using Nyss.Web.Features.HealthRisks;
-using Nyss.Web.Features.Report;
-using Nyss.Web.Features.Report.Data;
+using Nyss.Web.Features.Reports;
 using Nyss.Web.Features.SmsGateway.Logic;
 using Swashbuckle.AspNetCore.Swagger;
 

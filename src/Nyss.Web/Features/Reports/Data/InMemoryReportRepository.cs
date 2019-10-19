@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nyss.Web.Features.Report.Data
+namespace Nyss.Web.Features.Reports.Data
 {
     public class InMemoryReportRepository : IReportRepository
     {

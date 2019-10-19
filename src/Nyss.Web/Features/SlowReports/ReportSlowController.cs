@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nyss.Web.Features.Report;
+using Nyss.Web.Features.Reports;
 using Nyss.Web.Features.SlowReports.Logic;
 
 namespace Nyss.Web.Features.SlowReports

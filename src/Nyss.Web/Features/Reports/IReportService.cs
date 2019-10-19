@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Nyss.Web.Features.SlowReports;
 using Nyss.Web.Features.SlowReports.Logic;
 
-namespace Nyss.Web.Features.Report
+namespace Nyss.Web.Features.Reports
 {
     public interface IReportService
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nyss.Web.Features.Report.Data;
+using Nyss.Web.Features.Reports.Data;
 
 namespace Nyss.Web.Features.Reports
 {

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Nyss.Web.Features.Report.Data;
 
 namespace Nyss.Web.Features.Reports.Data
 {

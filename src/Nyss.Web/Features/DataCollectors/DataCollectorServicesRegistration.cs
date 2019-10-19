@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Nyss.Web.Features.DataCollectors.Data;
 using Nyss.Web.Features.DataCollectors.Export;
 using Nyss.Web.Features.DataCollectors.Export.Formats;
 
@@ -10,6 +11,7 @@ namespace Nyss.Web.Features.DataCollectors
         {
             services.AddScoped<IDataCollectorsService, DataCollectorsService>();
             services.AddScoped<ICanExportDataCollectors, ExcelExporter>();
+            services.AddSingleton<IDataCollectorRepository, InMemoryDataCollectorRepository>();
         }
     }
 }

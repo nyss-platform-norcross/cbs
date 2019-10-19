@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NetTopologySuite.Geometries;
 using Nyss.Data.Concepts;
 using Nyss.Data.Models;
+using Nyss.Web.Features.DataCollectors.Data;
 using Nyss.Web.Features.HealthRisks;
+using Nyss.Web.Features.Locations.Data;
+using Nyss.Web.Features.Reports.Data;
 using RandomNameGeneratorLibrary;
 
 namespace Nyss.Web.Features.FakeData
 {
     public class FakeDataService
     {
+        private readonly ILocationRepository _locationRepository;
+        private readonly IDataCollectorRepository _dataCollectorRepository;
+        private readonly IReportRepository _reportRepository;
+        
+
         public static Point BottomLeftBoundary { get; set; }
         public static Point TopRightBoundary { get; set; }
         public static int InvalidReportPercentage { get; set; } = 5;
@@ -31,12 +40,27 @@ namespace Nyss.Web.Features.FakeData
             ContentLanguage = English,
             NationalSociety = NationalSociety,
         };
+        private static readonly SupervisorUser[] SupervisorUsers =
+        {
+            new SupervisorUser{Id = 1, Name = "John Doe"},
+            new SupervisorUser{ Id = 2, Name = "Jane Dae"}
+        };
         private readonly ProjectHealthRisk[] _projectHealthRisks;
 
+        public async Task EnsureFakeDataAsync()
+        {
+            
+        }
 
         public FakeDataService(
+            ILocationRepository locationRepository,
+            IDataCollectorRepository dataCollectorRepository,
+            IReportRepository reportRepository,
             IHealthRisksService healthRisksService)
         {
+            _locationRepository = locationRepository;
+            _dataCollectorRepository = dataCollectorRepository;
+            _reportRepository = reportRepository;
 
             var healthRisks = healthRisksService.All().Take(3).Select(hr =>
             {
@@ -58,30 +82,35 @@ namespace Nyss.Web.Features.FakeData
             }).ToArray();
         }
 
-        public IEnumerable<DataCollector> GenerateDataCollectors(int count)
+        public async Task< IEnumerable<DataCollector>> GenerateDataCollectorsAsync(int count)
         {
             var r = new Random();
+            List<DataCollector> collectors = new List<DataCollector>(count);
             for (int i = 0; i < count; i++)
             {
-                yield return GenerateDataCollector(r, i);
+                collectors.Add(await GenerateDataCollectorAsync(r));
             }
+
+            return collectors;
         }
 
-        public IEnumerable<Report> GenerateReports(int count, DateTime from, DateTime to)
+        public async Task< IEnumerable<Report>> GenerateReportsAsync(int count, DateTime from, DateTime to)
         {
             var r = new Random();
+            List<Report> reports = new List<Report>(count);
             for (int i = 0; i < count; i++)
             {
-                yield return GenerateReport(r, from, to, i);
+                reports.Add(await GenerateReportAsync(r, from, to));
             }
+
+            return reports;
         }
 
-        private DataCollector GenerateDataCollector(Random r, int? id = null)
+        private async Task<DataCollector > GenerateDataCollectorAsync(Random r)
         {
             var name = r.GenerateRandomFirstAndLastName();
-            return new DataCollector
+            var collector =  new DataCollector
             {
-                Id = id ?? 1,
                 Name = name,
                 DisplayName = name,
                 DataCollectorType = DataCollectorType.Human,
@@ -93,20 +122,24 @@ namespace Nyss.Web.Features.FakeData
                 AdditionalPhoneNumber = null,
                 Zone = null
             };
+
+            await _dataCollectorRepository.InsertAsync(collector);
+            await _dataCollectorRepository.SaveChangesAsync();
+
+            return collector;
         }
 
-        private Report GenerateReport(Random r, DateTime from, DateTime to, int? id = null)
+        private async Task<Report>  GenerateReportAsync(Random r, DateTime from, DateTime to)
         {
             var isValid = r.Next(100) < InvalidReportPercentage;
-            var dataCollector = GenerateDataCollector(r);
+            var dataCollector = GetDataCollector(r);
             var projectHealthRisk = GetProjectHealthRisk(r);
             var reportType = GetReportType(r);
             var reportCase = isValid ? GenerateValidReportCase(r, reportType) : null;
             var dateTime = GetDateTime(r, from, to);
 
-            return new Report
+            var report = new Report
             {
-                Id = id ?? 1,
                 CreatedAt = dateTime,
                 DataCollector = dataCollector,
                 IsTraining = true,
@@ -122,6 +155,17 @@ namespace Nyss.Web.Features.FakeData
                 ReportType = reportType,
                 Status = isValid ? ReportStatus.Accepted : ReportStatus.Rejected,
             };
+
+            await _reportRepository.InsertAsync(report);
+            await _reportRepository.SaveChangesAsync();
+            return report;
+        }
+
+        private DataCollector GetDataCollector(Random r)
+        {
+            var all = _dataCollectorRepository.GetAllAsync().Result.ToList();
+
+            return all[r.Next(all.Count)];
         }
 
         private DateTime GetDateTime(Random r, DateTime from, DateTime to)
@@ -144,7 +188,7 @@ namespace Nyss.Web.Features.FakeData
 
             return (long)d;
         }
-        
+
         private ReportType GetReportType(Random r)
         {
             return r.Next(2) == 0
@@ -227,12 +271,6 @@ namespace Nyss.Web.Features.FakeData
             return new Village { Name = r.GenerateRandomFirstAndLastName() };
         }
 
-        private static readonly SupervisorUser[] SupervisorUsers =
-        {
-            new SupervisorUser{Id = 1, Name = "John Doe"},
-            new SupervisorUser{ Id = 2, Name = "Jane Dae"}
-        };
-
         private SupervisorUser GetSupervisor(Random r)
         {
             return SupervisorUsers[r.Next(SupervisorUsers.Length)];
@@ -283,5 +321,109 @@ namespace Nyss.Web.Features.FakeData
 
             return new Point(longitude, latitude);
         }
+
+//        private IEnumerable<Village> GenerateLocations()
+//        {
+//            /*
+//             *
+//Mbendi:
+//- Malden
+//- Panau
+//- Plama
+//- Baldova
+//- Farfelu
+//Lasondra:
+//- Guianbilan
+//- Roller
+//- Kurio
+//- Nouuga
+//- Chapito
+//- Tayti
+//- Pill
+//- Gringen
+//- Dernyka
+//- Gana
+//- Sopahonta
+//- Guadec
+//- Sabakalan
+//- Lacroa
+//- Bogay
+//Coronia:
+//- Yasi
+//- Hanplida
+//- Goub
+//- Yopao
+//- Imara
+//- Nayak
+//- Cialia
+//- Messa
+//- Santalu
+//- Tribia
+//Layuna:
+//- Rohen
+//- Sopigu
+//- Gunsa
+//- Nitaba
+//- Realia
+//- Yanpula
+//- Tubigsopa
+//- Caboza
+//- Povia
+//- Topigo
+//- Santa Rita
+//Bahahl:
+//- Ploucland
+//- Taronia
+//- Kalewool
+//- Radistan
+//- Mifan
+//- Wadata
+//- Haygam
+//- Carouge
+//- Join
+//- Aimesalang
+//- Notsimon
+//- Titof
+//- Buligtan
+//- Slaka
+//- Kurkama
+//- Banglafi
+//- Glupi
+//- Taotat
+//Moroni:
+//- Dipalong
+//- Alain
+//- Toros
+//- Provida
+//- Marwi
+//- Ankapol
+//- Pornic
+//- Silenciosa
+//- Madiba
+//- Sapin
+//- Simbad
+//- Rabito
+//- Madiba
+//Bamkao:
+//- Padang
+//- Bahkan
+//- Ridapel
+//- Pela
+//- Jennifo
+//- Edna
+//- Orchia
+//- Keep
+//- Prondisa
+//- Jose
+//- Okko
+//- Ladetu
+//- Loreal
+//- San Miguel
+//- Maioza
+//- Giboa
+//- Mariba
+//             *
+//             */
+//        }
     }
 }

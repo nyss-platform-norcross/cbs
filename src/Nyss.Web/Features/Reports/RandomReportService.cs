@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Nyss.Web.Features.Report.Data;
 using Nyss.Web.Features.Reports.Data;
 using RandomNameGeneratorLibrary;
 

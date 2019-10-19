@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Nyss.Web.Features.Report.Data;
 
 namespace Nyss.Web.Features.Reports.Data
 {
     public class InMemoryReportRepository : IReportRepository
     {
-        private static List<Nyss.Data.Models.Report> _reports;
-
-        public InMemoryReportRepository()
-        {
-            _reports = new List<Nyss.Data.Models.Report>();
-        }
+        public static List<Nyss.Data.Models.Report> Reports = new List<Nyss.Data.Models.Report>();
 
         public IEnumerable<Nyss.Data.Models.Report> All()
         {
-            return _reports;
+            return Reports;
         }
 
         public Task<Nyss.Data.Models.Report> InsertAsync(Nyss.Data.Models.Report report)
         {
-            report.Id = _reports.Count + 1;
-            _reports.Add(report);
+            report.Id = Reports.Count + 1;
+            Reports.Add(report);
 
             return Task.FromResult(report);
         }
 
         public Task<PaginationResult<Nyss.Data.Models.Report>> GetReportsAsync(PaginationOptions options)
         {
-            var query =  _reports.AsQueryable();
+            var query =  Reports.AsQueryable();
 
             var totalCount = query.Count();
 

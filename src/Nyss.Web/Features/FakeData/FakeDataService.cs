@@ -18,7 +18,7 @@ namespace Nyss.Web.Features.FakeData
         private readonly ILocationRepository _locationRepository;
         private readonly IDataCollectorRepository _dataCollectorRepository;
         private readonly IReportRepository _reportRepository;
-        
+
 
         public static Point BottomLeftBoundary { get; set; }
         public static Point TopRightBoundary { get; set; }
@@ -49,7 +49,13 @@ namespace Nyss.Web.Features.FakeData
 
         public async Task EnsureFakeDataAsync()
         {
-            
+            if ((await _locationRepository.GetRegionsAsync()).Any()) return;
+
+            Random r = new Random();
+
+            GenerateLocations();
+            await GenerateDataCollectorsAsync(20, r);
+            await GenerateReportsAsync(200, DateTime.Now.AddMonths(-1), DateTime.Now, r);
         }
 
         public FakeDataService(
@@ -82,9 +88,9 @@ namespace Nyss.Web.Features.FakeData
             }).ToArray();
         }
 
-        public async Task< IEnumerable<DataCollector>> GenerateDataCollectorsAsync(int count)
+        public async Task<IEnumerable<DataCollector>> GenerateDataCollectorsAsync(int count, Random r)
         {
-            var r = new Random();
+            r = r ?? new Random();
             List<DataCollector> collectors = new List<DataCollector>(count);
             for (int i = 0; i < count; i++)
             {
@@ -94,9 +100,9 @@ namespace Nyss.Web.Features.FakeData
             return collectors;
         }
 
-        public async Task< IEnumerable<Report>> GenerateReportsAsync(int count, DateTime from, DateTime to)
+        public async Task<IEnumerable<Report>> GenerateReportsAsync(int count, DateTime from, DateTime to, Random r)
         {
-            var r = new Random();
+            r = r ?? new Random();
             List<Report> reports = new List<Report>(count);
             for (int i = 0; i < count; i++)
             {
@@ -106,10 +112,10 @@ namespace Nyss.Web.Features.FakeData
             return reports;
         }
 
-        private async Task<DataCollector > GenerateDataCollectorAsync(Random r)
+        private async Task<DataCollector> GenerateDataCollectorAsync(Random r)
         {
             var name = r.GenerateRandomFirstAndLastName();
-            var collector =  new DataCollector
+            var collector = new DataCollector
             {
                 Name = name,
                 DisplayName = name,
@@ -129,7 +135,7 @@ namespace Nyss.Web.Features.FakeData
             return collector;
         }
 
-        private async Task<Report>  GenerateReportAsync(Random r, DateTime from, DateTime to)
+        private async Task<Report> GenerateReportAsync(Random r, DateTime from, DateTime to)
         {
             var isValid = r.Next(100) < InvalidReportPercentage;
             var dataCollector = GetDataCollector(r);
@@ -268,7 +274,9 @@ namespace Nyss.Web.Features.FakeData
 
         private Village GetVillage(Random r)
         {
-            return new Village { Name = r.GenerateRandomFirstAndLastName() };
+            var all = _locationRepository.GetVillagesAsync().Result.ToList();
+
+            return all[r.Next(all.Count)];
         }
 
         private SupervisorUser GetSupervisor(Random r)
@@ -322,108 +330,109 @@ namespace Nyss.Web.Features.FakeData
             return new Point(longitude, latitude);
         }
 
-//        private IEnumerable<Village> GenerateLocations()
-//        {
-//            /*
-//             *
-//Mbendi:
-//- Malden
-//- Panau
-//- Plama
-//- Baldova
-//- Farfelu
-//Lasondra:
-//- Guianbilan
-//- Roller
-//- Kurio
-//- Nouuga
-//- Chapito
-//- Tayti
-//- Pill
-//- Gringen
-//- Dernyka
-//- Gana
-//- Sopahonta
-//- Guadec
-//- Sabakalan
-//- Lacroa
-//- Bogay
-//Coronia:
-//- Yasi
-//- Hanplida
-//- Goub
-//- Yopao
-//- Imara
-//- Nayak
-//- Cialia
-//- Messa
-//- Santalu
-//- Tribia
-//Layuna:
-//- Rohen
-//- Sopigu
-//- Gunsa
-//- Nitaba
-//- Realia
-//- Yanpula
-//- Tubigsopa
-//- Caboza
-//- Povia
-//- Topigo
-//- Santa Rita
-//Bahahl:
-//- Ploucland
-//- Taronia
-//- Kalewool
-//- Radistan
-//- Mifan
-//- Wadata
-//- Haygam
-//- Carouge
-//- Join
-//- Aimesalang
-//- Notsimon
-//- Titof
-//- Buligtan
-//- Slaka
-//- Kurkama
-//- Banglafi
-//- Glupi
-//- Taotat
-//Moroni:
-//- Dipalong
-//- Alain
-//- Toros
-//- Provida
-//- Marwi
-//- Ankapol
-//- Pornic
-//- Silenciosa
-//- Madiba
-//- Sapin
-//- Simbad
-//- Rabito
-//- Madiba
-//Bamkao:
-//- Padang
-//- Bahkan
-//- Ridapel
-//- Pela
-//- Jennifo
-//- Edna
-//- Orchia
-//- Keep
-//- Prondisa
-//- Jose
-//- Okko
-//- Ladetu
-//- Loreal
-//- San Miguel
-//- Maioza
-//- Giboa
-//- Mariba
-//             *
-//             */
-//        }
+        private IEnumerable<Village> GenerateLocations()
+        {
+            yield break;
+            /*
+             *
+Mbendi:
+- Malden
+- Panau
+- Plama
+- Baldova
+- Farfelu
+Lasondra:
+- Guianbilan
+- Roller
+- Kurio
+- Nouuga
+- Chapito
+- Tayti
+- Pill
+- Gringen
+- Dernyka
+- Gana
+- Sopahonta
+- Guadec
+- Sabakalan
+- Lacroa
+- Bogay
+Coronia:
+- Yasi
+- Hanplida
+- Goub
+- Yopao
+- Imara
+- Nayak
+- Cialia
+- Messa
+- Santalu
+- Tribia
+Layuna:
+- Rohen
+- Sopigu
+- Gunsa
+- Nitaba
+- Realia
+- Yanpula
+- Tubigsopa
+- Caboza
+- Povia
+- Topigo
+- Santa Rita
+Bahahl:
+- Ploucland
+- Taronia
+- Kalewool
+- Radistan
+- Mifan
+- Wadata
+- Haygam
+- Carouge
+- Join
+- Aimesalang
+- Notsimon
+- Titof
+- Buligtan
+- Slaka
+- Kurkama
+- Banglafi
+- Glupi
+- Taotat
+Moroni:
+- Dipalong
+- Alain
+- Toros
+- Provida
+- Marwi
+- Ankapol
+- Pornic
+- Silenciosa
+- Madiba
+- Sapin
+- Simbad
+- Rabito
+- Madiba
+Bamkao:
+- Padang
+- Bahkan
+- Ridapel
+- Pela
+- Jennifo
+- Edna
+- Orchia
+- Keep
+- Prondisa
+- Jose
+- Okko
+- Ladetu
+- Loreal
+- San Miguel
+- Maioza
+- Giboa
+- Mariba
+             *
+             */
+        }
     }
 }

@@ -21,10 +21,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-- task: Npm@1
-  inputs:
-    command: 'install'
-    workingDir: 'src/Nyss.Web/ClientApp/'
     
 - task: VSBuild@1
   inputs:

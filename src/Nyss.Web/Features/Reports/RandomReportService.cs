@@ -37,7 +37,7 @@ namespace Nyss.Web.Features.Reports
 
             report.Timestamp = dt;
             report.IsoYear = dt.ToString("yyyy");
-            report.IsoWeek = GetEpiWeek(dt).ToString();
+            report.IsoWeek = dt.GetIsoWeek().ToString();
             report.IsoYearIsoWeek = $"{report.IsoYear}-{report.IsoWeek}";
 
             var personGenerator = new PersonNameGenerator();
@@ -123,20 +123,6 @@ namespace Nyss.Web.Features.Reports
         public async Task<PaginationResult<Nyss.Data.Models.Report>> GetReportsAsync(PaginationOptions options)
         {
             return await _reportRepository.GetReportsAsync(options);
-        }
-
-        public static int GetEpiWeek(DateTime time)
-        {
-            if (time.Month == 12 && time.Day > 28)
-            {
-                DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
-                if (day >= DayOfWeek.Sunday && day <= DayOfWeek.Tuesday)
-                {
-                    time = time.AddDays(3);
-                }
-            }
-
-            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Sunday);
         }
     }
 }

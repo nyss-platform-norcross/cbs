@@ -43,10 +43,7 @@ namespace Nyss.Web.Features.SlowReports
 
             var paginationResult = await _reportService.GetReportsAsync(options);
 
-            var data = paginationResult.Data.Select(x => new ReportViewModel
-            {
-                Message = x.RawContent
-            }).ToList(); // TODO
+            var data = paginationResult.Data.Select(x => x.ToViewModel()).ToList();
 
             var dataTableData = new DatatableDto<ReportViewModel>
             {

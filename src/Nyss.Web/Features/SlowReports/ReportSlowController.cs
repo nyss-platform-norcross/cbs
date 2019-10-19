@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Nyss.Web.Features.Report.Data;
 using Nyss.Web.Features.Reports;
+using Nyss.Web.Features.Reports.Data;
 
 namespace Nyss.Web.Features.SlowReports
 {
@@ -43,10 +43,7 @@ namespace Nyss.Web.Features.SlowReports
 
             var paginationResult = await _reportService.GetReportsAsync(options);
 
-            var data = paginationResult.Data.Select(x => new ReportViewModel
-            {
-                Message = x.RawContent
-            }).ToList(); // TODO
+            var data = paginationResult.Data.Select(x => x.ToViewModel()).ToList();
 
             var dataTableData = new DatatableDto<ReportViewModel>
             {

@@ -17,6 +17,7 @@ body {
   margin: 0 auto;
   padding: 0 1rem;
 }
+
 .custom-row:before,
 .custom-row:after {
   content: " ";
@@ -90,8 +91,8 @@ body {
   border-bottom: 1.5px solid #c02c2c;
 }
 
-@media screen and (max-width: 1440px) {
-  .sidebar-menu-container {
-    left: 0;
-  }
-}
+@media screen and (max-width: 1440px) {}
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width:320px) {}

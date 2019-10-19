@@ -7,7 +7,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 //Components
-import TabCreateDataComponent from "./TabCreateDataComponent";
 
 const useStyles = makeStyles({
   root: {
@@ -194,13 +193,11 @@ const rows = [
   )
 ];
 
-export default function SimpleTable() {
+export default function MainListComponent() {
   const classes = useStyles();
 
   return (
     <div>
-      <h1>Report list</h1>
-      <TabCreateDataComponent />
       <Paper className={classes.root}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

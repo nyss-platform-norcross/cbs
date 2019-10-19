@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import SimpleTable from "./report-list-components/createData";
+import ReportListComponent from "./report-list-components/ReportListComponent";
 
 const ReportList = props => {
-  return <SimpleTable />;
+  return <ReportListComponent />;
 };
 
 export default connect()(ReportList);

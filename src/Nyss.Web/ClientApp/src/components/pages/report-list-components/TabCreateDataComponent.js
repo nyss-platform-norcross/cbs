@@ -5,6 +5,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+//Route imported
+
+import { withRouter } from "react-router-dom";
+//Components to render with
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -31,8 +35,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`
+    id: `horizonta-tab-${index}`,
+    "aria-controls": `horizontal-tabpanel-${index}`
   };
 }
 
@@ -48,7 +52,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function VerticalTabs() {
+export default function TabCreateDataComponent() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -63,16 +67,13 @@ export default function VerticalTabs() {
         variant="scrollable"
         value={value}
         onChange={handleChange}
-        aria-label="Vertical tabs example"
+        aria-label="Horizontal tabs example"
         className={classes.tabs}
       >
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab label="MAIN LIST" />
+        <Tab label="DATA COLLECTION POINTS LIST" />
+        <Tab label="TRAINING LIST" />
       </Tabs>
-      <TabPanel value={value}>Item One</TabPanel>
-      <TabPanel value={value}>Item Two</TabPanel>
-      <TabPanel value={value}>Item Three</TabPanel>
     </div>
   );
 }

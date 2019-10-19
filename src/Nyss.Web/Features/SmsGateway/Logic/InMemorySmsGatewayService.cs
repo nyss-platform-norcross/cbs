@@ -17,7 +17,7 @@ namespace Nyss.Web.Features.SmsGateway.Logic
         public InMemorySmsGatewayService(ISmsParser smsParser,
             IReportRepository reportRepository)
         {
-            _smsParser = smsParser;
+            _smsParser = smsParser; 
             _reportRepository = reportRepository;
         }
         
@@ -44,7 +44,7 @@ namespace Nyss.Web.Features.SmsGateway.Logic
                     result.FeedbackMessage = "Sorry bro, I do not understand.";
                 }
 
-                var report = new Data.Models.Report
+                var report = new Report
                 {
                     CreatedAt = sms.ReceivedAt,
                     ReportedCase = new ReportCase

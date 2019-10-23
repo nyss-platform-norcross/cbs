@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nyss.Web.Utils;
 
-namespace Nyss.Web.Features.Report
+namespace Nyss.Web.Features.Reports
 {
     public class ReportController : BaseController
     {

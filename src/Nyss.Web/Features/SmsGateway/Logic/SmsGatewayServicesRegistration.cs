@@ -6,7 +6,7 @@ namespace Nyss.Web.Features.SmsGateway.Logic
     {
         public static void RegisterSmsGatewayFeature(this IServiceCollection services)
         {
-            services.AddScoped<ISmsGatewayService, InFileSmsGatewayService>();
+            services.AddScoped<ISmsGatewayService, InMemorySmsGatewayService>();
             services.AddScoped<ISmsParser, SmsParser>();
         }
     }

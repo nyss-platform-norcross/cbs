@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nyss.Web.Features.DataCollectors;
+using Nyss.Web.Features.FakeData;
 using Nyss.Web.Features.HealthRisks;
-using Nyss.Web.Features.Report;
-using Nyss.Web.Features.Report.Data;
+using Nyss.Web.Features.Locations;
+using Nyss.Web.Features.Reports;
 using Nyss.Web.Features.SmsGateway.Logic;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -33,6 +34,8 @@ namespace Nyss
                 c.SwaggerDoc("v1", new Info { Title = "Nyss API", Version = "v1" });
             });
 
+            services.RegisterFakeDataFeature();
+            services.RegisterLocationFeature();
             services.RegisterDataCollectorsFeature();
             services.RegisterHealthRiskFeature();
             services.RegisterReportFeature();

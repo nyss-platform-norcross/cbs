@@ -2,10 +2,31 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 1.5em;
+  margin-top: 2em;
 }
 
 .Filters .filter {
   width: 31%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Filters .filter .datepicker {
+  z-index: 3;
+}
+
+.Filters .filter .react-datepicker-wrapper {
+  display: block;
+}
+
+.Filters .filter .label {
+  font-weight: bold;
+  margin-bottom: 0.6em;
+  width: 100%;
+}
+
+.Filters .filter .inputFilter {
+  width: 100%;
 }
 
 .Filters .filter input,
@@ -16,4 +37,5 @@
   background-color: #fff;
   height: 3.5em;
   padding: 0 1em;
+  -webkit-appearance: none;
 }

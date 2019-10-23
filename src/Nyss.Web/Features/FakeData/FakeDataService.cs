@@ -139,7 +139,7 @@ namespace Nyss.Web.Features.FakeData
 
         private async Task<Report> GenerateReportAsync(Random r, DateTime from, DateTime to)
         {
-            var isValid = r.Next(100) < InvalidReportPercentage;
+            var isValid = r.Next(100) >= InvalidReportPercentage;
             var dataCollector = GetDataCollector(r);
             var projectHealthRisk = GetProjectHealthRisk(r);
             var reportType = GetReportType(r);

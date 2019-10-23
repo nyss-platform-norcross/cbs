@@ -49,8 +49,8 @@ namespace Nyss.Web.Features.DataCollectors.Export.Formats
             worksheet.Cells[row, 3].Value = dataCollector.YearOfBirth;
             worksheet.Cells[row, 4].Value = dataCollector.Sex;
             worksheet.Cells[row, 5].Value = dataCollector.Language;
-            worksheet.Cells[row, 6].Value = dataCollector.Latitude.ToString("0:0000");
-            worksheet.Cells[row, 7].Value = dataCollector.Longitude.ToString("0.0000");
+            worksheet.Cells[row, 6].Value = dataCollector.Latitude;
+            worksheet.Cells[row, 7].Value = dataCollector.Longitude;
             worksheet.Cells[row, 8].Value = dataCollector.Region;
             worksheet.Cells[row, 9].Value = dataCollector.District;
             worksheet.Cells[row, 10].Value = dataCollector.Village;

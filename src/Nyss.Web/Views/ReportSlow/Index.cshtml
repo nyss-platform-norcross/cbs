@@ -56,12 +56,12 @@
                     <th><input type="text" placeholder="Total females" /></th>
                     <th><input type="text" placeholder="Total males" /></th>
                     <th><input type="text" placeholder="Total" /></th>
-                    <th><input type="text" placeholder="Location" /></th>
+                    <th></th>
                     <th><input type="text" placeholder="Message" /></th>
-                    <th><input type="text" placeholder="Errors" /></th>
-                    <th><input type="text" placeholder="ISOyear" /></th>
-                    <th><input type="text" placeholder="ISOweek" /></th>
-                    <th><input type="text" placeholder="ISOyear-ISOweek" /></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -139,7 +139,10 @@
                     { data: "total" },
                     { data: "location" },
                     { data: "message" },
-                    { data: "errors" },
+                    {
+                        data: "errors",
+                        orderable: false,
+                    },
                     { data: "isoYear" },
                     { data: "isoWeek" },
                     { data: "isoYearIsoWeek" },

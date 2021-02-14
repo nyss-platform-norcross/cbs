@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Nyss.Web.Utils;
 
-namespace Nyss.Web.Features.Report.Export
+namespace Nyss.Web.Features.Reports.Export
 {
     [Route("/api/report/export")]
     public class ReportExportController : BaseController
